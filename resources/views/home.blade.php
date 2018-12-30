@@ -13,8 +13,17 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                neki tekst
+                    <div>
+                        <a href="" class="btn btn-secondary">
+                            {{ trans('translations.bookmarks') }}
+                        </a>
+                        <a href="" class="btn btn-secondary">
+                            {{ trans('translations.subscriptions') }}
+                        </a>
+                        <a href="{{ route('users.edit', ['id' => auth()->user()->id ]) }}" class="btn btn-secondary" style="float:right;">
+                            {{ trans('translations.profile') }}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
