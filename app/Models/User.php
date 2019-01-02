@@ -25,4 +25,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+    * Get the comments for the blog post.
+    */
+    public function bookmarks()
+    {
+        return $this->hasMany('App\Models\Bookmark', 'user_id', 'id');
+    }
 }

@@ -3,12 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\ResourceController;
+use App\Models\Bookmark;
 
-class ResourceController extends Controller
+class BookmarkController extends ResourceController
 {
-    protected $mainModel;
-    protected $modelRequest;
+    /**
+    * Create a new controller instance.
+    *
+    * @return void
+    */
+    public function __construct()
+    {
+        $this->mainModel = 'App\\Models\\Bookmark';
+
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
@@ -17,7 +27,10 @@ class ResourceController extends Controller
      */
     public function index()
     {
+        $bookmarks = auth()->user()->bookmarks;
 
+        return view('bookmark.index')
+            ->with('bookmarks', $bookmarks);
     }
 
     /**
@@ -27,7 +40,7 @@ class ResourceController extends Controller
      */
     public function create()
     {
-
+        return view('bookmark.create');
     }
 
     /**
@@ -38,14 +51,13 @@ class ResourceController extends Controller
      */
     public function store(Request $request)
     {
-        // $modelRequest = new $this->modelRequest;
-        // $request->validate(
-        //     $modelRequest->rules()
-        // );
+        $request->replace($request->except('_token'));
+        $model = parent::store($request);
+        $model->user_id = auth()->user()->id;
+        $model->save();
+        $this->saveMedia($request, $model, 'bookmark_icon.');
 
-        $input = $request->all();
-        $model = $this->mainModel::firstOrCreate($input);
-        return $model;
+        return redirect(route('bookmarks.index'));
     }
 
     /**
@@ -67,7 +79,10 @@ class ResourceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $bookmark = Bookmark::find($id);
+
+        return view('bookmark.edit')
+            ->with('bookmark', $bookmark);
     }
 
     /**
@@ -79,9 +94,10 @@ class ResourceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $model = $this->mainModel::findOrFail($id);
-        $model->update($request->all());
-        return $model;
+        $model = parent::update($request, $id);
+        $this->saveMedia($request, $model, 'bookmark_icon.');
+
+        return redirect()->back();
     }
 
     /**
@@ -92,25 +108,13 @@ class ResourceController extends Controller
      */
     public function destroy($id)
     {
-        $model = $this->mainModel::findOrFail($id);
-
-        if( $model->delete() ) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    public function saveMedia(Request $request, $model, $filename)
-    {
-        if ($request->hasFile('icon') AND $request->file('icon')->isValid())
+        if(parent::destroy($id) == true)
         {
-            $folder = 'icons/'.$model->id;
-            $path = Storage::disk('public')
-                ->putFileAs($folder, $request->file('icon'), $filename.$request->icon->extension());
-            $model->icon = $path;
-            $model->save();
+            return redirect()->back();
+        }
+        else
+        {
+            return "Greska";
         }
     }
 }

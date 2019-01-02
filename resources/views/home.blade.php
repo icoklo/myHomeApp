@@ -14,7 +14,7 @@
                         </div>
                     @endif
                     <div>
-                        <a href="" class="btn btn-secondary">
+                        <a href="{{ route('bookmarks.index') }}" class="btn btn-secondary">
                             {{ trans('translations.bookmarks') }}
                         </a>
                         <a href="" class="btn btn-secondary">

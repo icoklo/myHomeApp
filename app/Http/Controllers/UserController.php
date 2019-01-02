@@ -77,7 +77,7 @@ class UserController extends ResourceController
     {
         $user = auth()->user();
 
-        return view('user_profile')
+        return view('user.user_profile')
             ->with('user', $user);
     }
 
@@ -107,23 +107,9 @@ class UserController extends ResourceController
             ]));
             $user = parent::update($request, $id);
         }
-        $this->saveMedia($request, $user);
+        $this->saveMedia($request, $user, 'user_icon.');
 
         return redirect()->back();
-    }
-
-    public function saveMedia($request, $model)
-    {
-        if ($request->hasFile('icon'))
-        {
-            //dd($request->input('icon'));
-            $folder = 'icons/'.$model->id;
-            $path = Storage::disk('public')
-                ->putFileAs($folder, $request->file('icon'), 'icon.'.$request->icon->extension());
-            //dd($path);
-            $model->icon = $path;
-            $model->save();
-        }
     }
 
     /**
