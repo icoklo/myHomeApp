@@ -50,7 +50,7 @@ class PasswordReset extends Notification
         return (new MailMessage)
             ->subject('Reset lozinke')
             ->greeting('Poštovani,')
-            ->line('Ovu poruku ste primili zato jer ste zatražili reset lozinke.')
+            ->line('Ovu e-poruku ste primili zato jer ste zatražili reset lozinke.')
             ->action('Reset lozinke', url('password/reset', $this->token))
             ->line('Ako niste zatražili reset lozinke zanemarite ovu poruku.')
             ->salutation('S poštovanjem, Igor Čoklo');

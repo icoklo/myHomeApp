@@ -23,5 +23,8 @@ return [
     'user_name'         => 'Ime i prezime:',
     'phone'             => 'Telefon:',
     'birthday'          => 'Datum rođenja:',
-    'show_bookmarks'    => 'Pregled bookmarka'
+    'show_bookmarks'    => 'Pregled bookmarka',
+    'password'          => 'Lozinka:',
+    'remember_me'       => 'Zapamti me',
+    'forgoten_password' => 'Zaboravljena lozinka?'
 ];
