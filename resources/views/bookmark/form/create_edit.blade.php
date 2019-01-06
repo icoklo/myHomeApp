@@ -36,10 +36,10 @@
 <div class="form-group row label-floating {{ ($errors->has('last_name')) ? 'has-error' : '' }}">
     <label class="col-sm-3 control-label"> {{ __('translations.description') }} </label>
     <div class="col-sm-9">
-        <textarea name="description" class="form-control">
-            @if( isset($bookmark) ) {{ $bookmark->description }}
-            @else {{ old('description') }}
-            @endif
+        <textarea name="description" class="form-control" >
+@if( isset($bookmark) ){{$bookmark->description}}
+@else {{old('description')}}
+@endif
         </textarea>
     </div>
 </div>

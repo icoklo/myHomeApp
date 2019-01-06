@@ -23,4 +23,5 @@ return [
     'user_name'         => 'Ime i prezime:',
     'phone'             => 'Telefon:',
     'birthday'          => 'Datum rođenja:',
+    'show_bookmarks'    => 'Pregled bookmarka'
 ];

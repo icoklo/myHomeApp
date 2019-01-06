@@ -23,7 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $bookmarks = auth()->user()->bookmarks;
+        $bookmarks = auth()->user()->bookmarks()
+            ->inRandomOrder()
+            ->limit(4)
+            ->get();
 
         return view('home')
             ->with('bookmarks', $bookmarks);

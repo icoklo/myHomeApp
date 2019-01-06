@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('content')
 <style>
 td {
     vertical-align: middle;
 }
 </style>
+@section('content')
 
 <div class="container">
     <div class="row justify-content-center">
