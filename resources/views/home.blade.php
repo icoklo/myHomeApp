@@ -17,7 +17,7 @@
                             <a href="{{ route('bookmarks.index') }}" class="btn btn-secondary">
                                 {{ trans('translations.bookmarks') }}
                             </a>
-                            <a href="" class="btn btn-secondary">
+                            <a href="{{ route('subscriptions.index') }}" class="btn btn-secondary">
                                 {{ trans('translations.subscriptions') }}
                             </a>
                             <a href="{{ route('users.edit', ['id' => auth()->user()->id ]) }}" class="btn btn-secondary" style="float:right;">

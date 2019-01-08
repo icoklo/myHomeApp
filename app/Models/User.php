@@ -45,4 +45,9 @@ class User extends Authenticatable
     {
         $this->notify(new PasswordReset($token));
     }
+
+    public function informations()
+	{
+		return $this->belongsToMany(\App\Models\Information::class, 'user_information', 'user_id', 'information_id');
+	}
 }

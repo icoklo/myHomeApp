@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
+                    <div class="card-header">{{ __('translations.login') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
@@ -62,7 +62,7 @@
                             <div class="col-sm-12">
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('translations.forgoten_password') }}
+                                        {{ __('translations.forgoten_password').'?' }}
                                     </a>
                                 @endif
                                 <a href="{{ route('register') }}" target="_blank" style="float:right">

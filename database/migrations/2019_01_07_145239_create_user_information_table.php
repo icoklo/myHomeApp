@@ -16,7 +16,7 @@ class CreateUserInformationTable extends Migration
         Schema::create('user_information', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
             $table->integer('information_id')->unsigned();
-            $table->integer('sort_order');
+            $table->integer('sort_order')->nullable();
             $table->integer('poll_interval');
 
             $table->timestamps();
