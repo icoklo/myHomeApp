@@ -12,5 +12,5 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js');
-mix.js('resources/js/subscription_create_edit.js', 'public/js');
+mix.js('resources/js/subscriptions.js', 'public/js');
 mix.sass('resources/sass/app.scss', 'public/css');

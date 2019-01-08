@@ -35,7 +35,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3"> {{ __('translations.city').':' }} </label>
                             <div class="col-sm-9">
-                                <select class="form-control" id="selectInformation" name="information">
+                                <select class="form-control" id="selectInformation" name="city">
                                     @foreach($cities as $c)
                                         <option value={{ $c }}
                                         @if( old('information') == $information->id)
@@ -67,5 +67,5 @@
     </div>
 </div>
 
-<script src="{{ asset('js/subscription_create_edit.js') }}" ></script>
+<script src="{{ asset('js/subscriptions.js') }}" ></script>
 @endsection

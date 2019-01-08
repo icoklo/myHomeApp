@@ -21,4 +21,27 @@ class Information extends Model
     protected $hidden = [
 
     ];
+
+    public function getPollIntervalAttribute($value)
+    {
+        $returnValue = '';
+        
+        switch($value)
+        {
+            case 3600:
+                $returnValue = __('translations.1hour');
+                break;
+            case 60:
+                $returnValue = __('translations.1min');
+                break;
+            case 10:
+                $returnValue = __('translations.10sec');
+                break;
+            case 1:
+                $returnValue = __('translations.1sec');
+                break;
+        }
+
+        return $returnValue;
+    }
 }

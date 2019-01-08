@@ -28,7 +28,10 @@ class HomeController extends Controller
             ->limit(4)
             ->get();
 
+        $subscriptions = auth()->user()->informations()->get();
+
         return view('home')
-            ->with('bookmarks', $bookmarks);
+            ->with('bookmarks', $bookmarks)
+            ->with('subscriptions', $subscriptions);
     }
 }

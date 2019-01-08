@@ -37,5 +37,9 @@ return [
     'poll_interval'             => 'Interval osvjezavanja',
     'configuration'             => 'Konfiguracija',
     'show_subscriptions'        => 'Pregled pretplata',
-    'city'                      => 'Grad/mjesto'
+    'city'                      => 'Grad/mjesto',
+    '1hour'                     => '1 sat',
+    '1min'                      => '1 min',
+    '10sec'                     => '10 sekundi',
+    '1sec'                      => '1 sekunda',
 ];

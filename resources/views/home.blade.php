@@ -32,9 +32,45 @@
                                 </a>
                             @endforeach
                         </div>
+
+                        <div id="subscriptions" class="">
+                            @foreach($subscriptions as $subscription)
+                                <div id="{{ $subscription->name }}">
+                                    <p> {{ $subscription->name.':' }}
+                                        <span id="{{ $subscription->name }}" data-interval="{{ $subscription->getOriginal('poll_interval') }}">
+
+                                        </span>
+                                    </p>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+    $(document).ready(function(){
+
+        refreshWeather();
+        refreshDate();
+        function refreshWeather()
+        {
+            var interval = $('span#Vrijeme').data('interval');
+
+            setInterval(function() {
+                var weather = ['Suncano', 'Oblacno', 'Pada snijeg'];
+                $('span#Vrijeme').html(weather[Math.floor(Math.random() * weather.length)]);
+            }, interval * 1000);
+        }
+
+        function refreshDate()
+        {
+            var interval = $('span#Datum').data('interval');
+            setInterval(function() {
+                $('span#Datum').html(Math.floor(Math.random() * 10));
+            }, interval * 1000);
+        }
+    });
+    </script>
 @endsection

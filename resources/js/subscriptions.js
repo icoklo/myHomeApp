@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    console.log("subscription_create_edit.js");
+    console.log("subscriptions.js");
 
     var selectedVal = $('select[name="information"]').val();
     switchCase(selectedVal);
@@ -32,6 +32,7 @@ $(document).ready(function(){
             default:
                 //change this according to your need
                 break;
+
         }
     }
 
