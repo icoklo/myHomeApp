@@ -24,3 +24,4 @@ Route::resource('bookmarks', 'BookmarkController');
 Route::resource('subscriptions', 'SubscriptionController');
 
 Route::get('/weather', 'SubscriptionController@getWeather');
+Route::get('/currency-list', 'SubscriptionController@getCurencyList');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\UserInformationConfig;
 
 class HomeController extends Controller
 {
@@ -29,9 +30,11 @@ class HomeController extends Controller
             ->get();
 
         $subscriptions = auth()->user()->informations()->get();
+        $user_information_config = UserInformationConfig::where('user_id', '=', auth()->user()->id)->get();
 
         return view('home')
             ->with('bookmarks', $bookmarks)
-            ->with('subscriptions', $subscriptions);
+            ->with('subscriptions', $subscriptions)
+            ->with('user_information_config', $user_information_config);
     }
 }

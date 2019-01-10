@@ -50,4 +50,9 @@ class User extends Authenticatable
 	{
 		return $this->belongsToMany(\App\Models\Information::class, 'user_information', 'user_id', 'information_id');
 	}
+
+    public function user_information_config()
+	{
+		return $this->belongsToMany(\App\Models\UserInformationConfig::class, 'user_information_config', 'user_id', 'information_id');
+	}
 }

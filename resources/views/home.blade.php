@@ -35,12 +35,18 @@
 
                         <div id="subscriptions" class="">
                             @foreach($subscriptions as $subscription)
-                                <div id="{{ $subscription->name }}">
-                                    <p> {{ $subscription->name.':' }}
-                                        <span id="{{ $subscription->name }}" data-interval="{{ $subscription->getOriginal('poll_interval') }}">
+                                <div class="form-group row">
+                                    <label class="col-sm-2"> {{ $subscription->name.':' }} </label>
 
-                                        </span>
-                                    </p>
+                                    <div class="col-sm-10" id="{{ str_slug($subscription->name, '_') }}"
+                                        data-interval="{{ $subscription->getOriginal('poll_interval') }}"
+                                        @if($subscription->name == 'Vrijeme')
+                                            data-city="{{ $user_information_config[0]->value }}"
+                                        @endif
+                                        >
+
+                                    </div>
+
                                 </div>
                             @endforeach
                         </div>
@@ -49,28 +55,5 @@
             </div>
         </div>
     </div>
-    <script>
-    $(document).ready(function(){
-
-        refreshWeather();
-        refreshDate();
-        function refreshWeather()
-        {
-            var interval = $('span#Vrijeme').data('interval');
-
-            setInterval(function() {
-                var weather = ['Suncano', 'Oblacno', 'Pada snijeg'];
-                $('span#Vrijeme').html(weather[Math.floor(Math.random() * weather.length)]);
-            }, interval * 1000);
-        }
-
-        function refreshDate()
-        {
-            var interval = $('span#Datum').data('interval');
-            setInterval(function() {
-                $('span#Datum').html(Math.floor(Math.random() * 10));
-            }, interval * 1000);
-        }
-    });
-    </script>
+    <script src="{{ asset('js/home.js') }}" ></script>
 @endsection

@@ -7,6 +7,8 @@ use App\Http\Controllers\ResourceController;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Validator;
+use App\Http\Requests\UserRequest;
 
 class UserController extends ResourceController
 {
@@ -29,10 +31,7 @@ class UserController extends ResourceController
     */
     public function index()
     {
-        // $user = auth()->user();
-        //
-        // return view('user_profile')
-        // ->with('user', $user);
+
     }
 
     /**
@@ -91,8 +90,11 @@ class UserController extends ResourceController
     public function update(Request $request, $id)
     {
         $user = null;
+        $userRequest = new UserRequest();
         if($request->filled('password'))
         {
+            $request->validate($userRequest->rules());
+
             $password = Hash::make($request->input('password'));
             $request->replace(array_merge($request->except('password_confirmation'),
             [

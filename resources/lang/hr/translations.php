@@ -11,6 +11,7 @@ return [
     'register'                  => 'Registracija',
     'add_new'                   => 'Dodaj novi zapis',
     'create_bookmark'           => 'Kreiranje bookmarka',
+    'create_subscription'       => 'Dodavanje nove pretplate',
     'bookmark_name'             => 'Naziv:',
     'url'                       => 'URL:',
     'description'               => 'Opis:',
@@ -39,7 +40,7 @@ return [
     'show_subscriptions'        => 'Pregled pretplata',
     'city'                      => 'Grad/mjesto',
     '1hour'                     => '1 sat',
+    '10min'                     => '10 min',
     '1min'                      => '1 min',
-    '10sec'                     => '10 sekundi',
-    '1sec'                      => '1 sekunda',
+    '30sec'                     => '30 sekundi',
 ];

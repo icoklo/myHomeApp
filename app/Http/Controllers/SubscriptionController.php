@@ -26,6 +26,33 @@ class SubscriptionController extends ResourceController
         $this->middleware('auth');
     }
 
+    public function getWeather(Request $request)
+    {
+        $city = $request->input('q');
+        $url = "https://api.openweathermap.org/data/2.5/weather";
+        $url .= '?q='.$city.'&lang=hr&units=metric&appid='.env('OPEN_WEATHER_MAP_API_KEY');
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $json = curl_exec($curl);
+        curl_close($curl);
+
+        return $json;
+    }
+
+    public function getCurencyList(Request $request)
+    {
+        // samo placeni acount moze mijenjati valutu, free ne moze!!!
+        $base = $request->input('base', 'EUR');
+        $url = "http://data.fixer.io/api/latest";
+        $url .= '?access_key='.env('FIXER_API_KEY');
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $json = curl_exec($curl);
+        curl_close($curl);
+
+        return $json;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -48,13 +75,36 @@ class SubscriptionController extends ResourceController
         ];
     }
 
+    public function getCurrencies()
+    {
+        return [
+            'EUR',
+        ];
+    }
+
     public function getIntervals()
     {
         return [
-            __('translations.1hour')        => 3600,
+            __('translations.30sec')        => 30,
             __('translations.1min')         => 60,
-            __('translations.10sec')        => 10,
-            __('translations.1sec')         => 1,
+            __('translations.10min')        => 600,
+            __('translations.1hour')        => 3600,
+        ];
+    }
+
+    public function getBanks()
+    {
+        return [
+            'RBA',
+            'Erste',
+            'Zagrebacka'
+        ];
+    }
+
+    public function getCategories()
+    {
+        return [
+            'srednji',
         ];
     }
 
@@ -68,11 +118,17 @@ class SubscriptionController extends ResourceController
         $informations = Information::all();
         $cities = $this->getCities();
         $intervals = $this->getIntervals();
+        $currency = $this->getCurrencies();
+        $banks = $this->getBanks();
+        $categories = $this->getCategories();
 
         return view('subscription.create')
             ->with('informations', $informations)
             ->with('cities', $cities)
-            ->with('intervals', $intervals);
+            ->with('intervals', $intervals)
+            ->with('currency', $currency)
+            ->with('banks', $banks)
+            ->with('categories', $categories);
     }
 
     /**
@@ -102,6 +158,7 @@ class SubscriptionController extends ResourceController
             case self::CURRENCY_LIST_ID:
                 break;
         }
+
         $userInformation->save();
 
         return redirect(route('subscriptions.index'));
