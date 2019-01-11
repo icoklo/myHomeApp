@@ -39,9 +39,9 @@
                                     <label class="col-sm-2"> {{ $subscription->name.':' }} </label>
 
                                     <div class="col-sm-10" id="{{ str_slug($subscription->name, '_') }}"
-                                        data-interval="{{ $subscription->getOriginal('poll_interval') }}"
+                                        data-interval="{{ $subscription->pivot->poll_interval_2 }}"
                                         @if($subscription->name == 'Vrijeme')
-                                            data-city="{{ $user_information_config[0]->value }}"
+                                            data-city="{{ $city }}"
                                         @endif
                                         >
 

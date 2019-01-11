@@ -17,7 +17,7 @@ class CreateUserInformationTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('information_id')->unsigned();
             $table->integer('sort_order')->nullable();
-            $table->integer('poll_interval');
+            $table->integer('poll_interval_2')->nullable();
 
             $table->timestamps();
             $table->primary(['user_id', 'information_id']);

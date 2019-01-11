@@ -36,7 +36,7 @@ td {
                                 <tr>
                                     <td> {{ $subscription->id }}</td>
                                     <td> {{ $subscription->name }} </td>
-                                    <td> {{ $subscription->poll_interval }} </td>
+                                    <td> {{ $subscription->pivot->poll_interval_2 .' sekundi'}} </td>
                                     <td>
                                         <a href="{{ route('subscriptions.edit', ['id' => $subscription->id]) }}">
                                             {{ __('translations.edit') }}

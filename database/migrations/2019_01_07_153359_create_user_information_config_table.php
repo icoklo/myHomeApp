@@ -17,7 +17,7 @@ class CreateUserInformationConfigTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('information_id')->unsigned();
             $table->string('name');
-            $table->string('value');
+            $table->string('value')->nullable();
 
             $table->timestamps();
             $table->primary(['user_id', 'information_id', 'name']);

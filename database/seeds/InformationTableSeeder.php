@@ -15,8 +15,8 @@ class InformationTableSeeder extends Seeder
     {
         Information::firstOrCreate([
             'name' => 'Datum',
-            // 1 sat = 3600 sekundi
-            'poll_interval' => 3600,
+            // 30 sekundi
+            'poll_interval' => 30,
         ]);
         Information::firstOrCreate([
             'name' => 'Vrijeme',
@@ -25,8 +25,8 @@ class InformationTableSeeder extends Seeder
         ]);
         Information::firstOrCreate([
             'name' => 'Tecajna lista',
-            // 2 minute = 120 sekundi
-            'poll_interval' => 120,
+            // 1 sat = 3600 sekundi
+            'poll_interval' => 3600,
         ]);
     }
 }

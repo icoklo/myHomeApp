@@ -25,3 +25,4 @@ Route::resource('subscriptions', 'SubscriptionController');
 
 Route::get('/weather', 'SubscriptionController@getWeather');
 Route::get('/currency-list', 'SubscriptionController@getCurencyList');
+Route::get('/date', 'SubscriptionController@getDate');

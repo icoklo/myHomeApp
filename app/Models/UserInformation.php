@@ -10,7 +10,7 @@ class UserInformation extends Model
 		'user_id',
 		'information_id',
         'sort_order',
-        'poll_interval'
+        'poll_interval_2'
 	];
 
     protected $table = 'user_information';

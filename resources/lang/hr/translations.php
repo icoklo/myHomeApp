@@ -43,4 +43,7 @@ return [
     '10min'                     => '10 min',
     '1min'                      => '1 min',
     '30sec'                     => '30 sekundi',
+    'bank'                      => 'Banka',
+    'currency'                  => 'Valuta',
+    'category'                  => 'Kategorija'
 ];

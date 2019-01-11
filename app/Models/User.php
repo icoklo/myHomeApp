@@ -48,7 +48,8 @@ class User extends Authenticatable
 
     public function informations()
 	{
-		return $this->belongsToMany(\App\Models\Information::class, 'user_information', 'user_id', 'information_id');
+		return $this->belongsToMany(\App\Models\Information::class, 'user_information', 'user_id', 'information_id')
+            ->withPivot('poll_interval_2');
 	}
 
     public function user_information_config()

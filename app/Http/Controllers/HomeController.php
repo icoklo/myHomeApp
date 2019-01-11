@@ -29,12 +29,18 @@ class HomeController extends Controller
             ->limit(4)
             ->get();
 
-        $subscriptions = auth()->user()->informations()->get();
-        $user_information_config = UserInformationConfig::where('user_id', '=', auth()->user()->id)->get();
+        $city = '';
+        $subscriptions = auth()->user()->informations;
+        $userInformationConfig = UserInformationConfig::where('user_id', '=', auth()->user()->id)
+            ->where('name', '=', 'city')->first();
+        if(!is_null($userInformationConfig))
+        {
+            $city = $userInformationConfig->value;
+        }
 
         return view('home')
             ->with('bookmarks', $bookmarks)
             ->with('subscriptions', $subscriptions)
-            ->with('user_information_config', $user_information_config);
+            ->with('city', $city);
     }
 }

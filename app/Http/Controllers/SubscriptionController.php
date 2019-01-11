@@ -12,7 +12,7 @@ class SubscriptionController extends ResourceController
 {
     const DATE_ID = 1;
     const WEATHER_ID = 2;
-    const CURRENCY_LIST_ID = 2;
+    const CURRENCY_LIST_ID = 3;
 
     /**
     * Create a new controller instance.
@@ -31,6 +31,12 @@ class SubscriptionController extends ResourceController
         $city = $request->input('q');
         $url = "https://api.openweathermap.org/data/2.5/weather";
         $url .= '?q='.$city.'&lang=hr&units=metric&appid='.env('OPEN_WEATHER_MAP_API_KEY');
+
+        return $this->curlFunction($url);
+    }
+
+    public function curlFunction($url)
+    {
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $json = curl_exec($curl);
@@ -45,10 +51,15 @@ class SubscriptionController extends ResourceController
         $base = $request->input('base', 'EUR');
         $url = "http://data.fixer.io/api/latest";
         $url .= '?access_key='.env('FIXER_API_KEY');
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $json = curl_exec($curl);
-        curl_close($curl);
+
+        return $this->curlFunction($url);
+    }
+
+    public function getDate(Request $request)
+    {
+        $json = json_encode([
+            'date' => date('d.m.Y')
+        ]);
 
         return $json;
     }
@@ -123,12 +134,71 @@ class SubscriptionController extends ResourceController
         $categories = $this->getCategories();
 
         return view('subscription.create')
+            ->with('userInformationConfig', [])
             ->with('informations', $informations)
             ->with('cities', $cities)
             ->with('intervals', $intervals)
             ->with('currency', $currency)
             ->with('banks', $banks)
             ->with('categories', $categories);
+    }
+
+    public function storeUpdate(Request $request)
+    {
+        $user = auth()->user();
+        $userInformation = UserInformation::firstOrCreate([
+            'user_id'           => $user->id,
+            'information_id'    => intval($request->input('information')),
+        ]);
+        UserInformation::where('user_id', '=', $user->id)
+            ->where('information_id', '=', intval($request->input('information')))
+            ->update([
+                'poll_interval_2' => intval($request->input('poll_interval'))
+            ]);
+
+        $configuration = $request->input('configuration');
+
+        switch(intval($request->input('information')))
+        {
+            case self::WEATHER_ID:
+                $userInformationConfig = UserInformationConfig::firstOrCreate(
+                    [
+                        'user_id'           => $user->id,
+                        'information_id'    => intval($request->input('information')),
+                        'name'              => 'city',
+                    ]
+                );
+                UserInformationConfig::where('user_id', '=', $user->id)
+                    ->where('information_id', '=', intval($request->input('information')))
+                    ->where('name', '=', 'city')
+                    ->update([
+                        'value'             => $configuration['city']
+                    ]);
+                break;
+            case self::CURRENCY_LIST_ID:
+                // TODO NACI BOLJE RJESENJE ZA UNSET???
+                unset($configuration['city']);
+
+                foreach($configuration as $key => $value)
+                {
+                    $userInformationConfig = UserInformationConfig::firstOrCreate(
+                        [
+                            'user_id'           => $user->id,
+                            'information_id'    => intval($request->input('information')),
+                            'name'              => $key,
+                        ]
+                    );
+
+                    UserInformationConfig::where('user_id', '=', $user->id)
+                        ->where('information_id', '=', intval($request->input('information')))
+                        ->where('name', '=', $key)
+                        ->update([
+                            'value'             => $value
+                        ]);
+                }
+                break;
+        }
+
     }
 
     /**
@@ -139,27 +209,7 @@ class SubscriptionController extends ResourceController
      */
     public function store(Request $request)
     {
-        $userInformation = new UserInformation();
-        $user = auth()->user();
-        $userInformation->user_id = $user->id;
-        $userInformation->information_id = intval($request->input('information'));
-        $userInformation->poll_interval = intval($request->input('poll_interval'));
-        $userInformationConfig = new UserInformationConfig();
-        $userInformationConfig->user_id = $user->id;
-        $userInformationConfig->information_id = intval($request->input('information'));
-
-        switch(intval($request->input('information')))
-        {
-            case self::WEATHER_ID:
-                $userInformationConfig->name = 'Grad';
-                $userInformationConfig->value = $request->input('city');
-                $userInformationConfig->save();
-                break;
-            case self::CURRENCY_LIST_ID:
-                break;
-        }
-
-        $userInformation->save();
+        $this->storeUpdate($request);
 
         return redirect(route('subscriptions.index'));
     }
@@ -183,7 +233,32 @@ class SubscriptionController extends ResourceController
      */
     public function edit($id)
     {
-        //
+        $userInformation = UserInformation::where('user_id', '=', auth()->user()->id)
+            ->where('information_id', '=', $id)
+            ->first();
+        $userInformationConfig = UserInformationConfig::where('user_id', '=', auth()->user()->id)
+            ->where('information_id', '=', $id)
+            ->get(['name', 'value']);
+
+        if(!$userInformationConfig->isEmpty())
+        {
+            $userInformationConfig = $userInformationConfig->mapWithKeys( function ($item) {
+                return [$item['name'] => $item['value']];
+            })->toArray();
+        }
+        else {
+            $userInformationConfig = [];
+        }
+
+        return view('subscription.edit')
+            ->with('informations', Information::all())
+            ->with('userInformation', $userInformation)
+            ->with('userInformationConfig', $userInformationConfig)
+            ->with('cities', $this->getCities())
+            ->with('intervals', $this->getIntervals())
+            ->with('currency', $this->getCurrencies())
+            ->with('banks', $this->getBanks())
+            ->with('categories', $this->getCategories());
     }
 
     /**
@@ -195,7 +270,9 @@ class SubscriptionController extends ResourceController
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->storeUpdate($request);
+
+        return redirect(route('subscriptions.index'));
     }
 
     /**
@@ -206,6 +283,32 @@ class SubscriptionController extends ResourceController
      */
     public function destroy($id)
     {
-        //
+        $user = auth()->user();
+        $userInformationConfig = UserInformationConfig::where('user_id', '=', $user->id)
+            ->where('information_id', '=', $id)
+            ->get();
+
+        if(!$userInformationConfig->isEmpty())
+        {
+            $userInformationConfig = UserInformationConfig::where('user_id', '=', $user->id)
+                ->where('information_id', '=', $id)
+                ->delete();
+        }
+        else {
+            $userInformationConfig = true;
+        }
+
+        $userInformation = UserInformation::where('user_id', '=', $user->id)
+            ->where('information_id', '=', $id)
+            ->delete();
+
+        if($userInformation AND $userInformationConfig)
+        {
+            return redirect()->back();
+        }
+        else
+        {
+            return "Greska";
+        }
     }
 }
