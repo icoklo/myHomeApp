@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+<style>
+.card-body div
+{
+    margin-bottom: 40px;
+}
+</style>
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -11,6 +17,11 @@
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
+                            </div>
+                        @endif
+                        @if (!empty($message))
+                            <div class="alert alert-success" role="alert">
+                                {{ $message }}
                             </div>
                         @endif
                         <div class="col-sm-12">
@@ -25,7 +36,7 @@
                             </a>
                         </div>
 
-                        <div class="">
+                        <div class="offset-sm-3">
                             @foreach($bookmarks as $bookmark)
                                 <a href="{{$bookmark->url}}" target="_blank">
                                     <img src={{ asset('storage/'.$bookmark->icon) }} alt="{{$bookmark->name}}" title="{{$bookmark->name}}" style="width:20%;"/>

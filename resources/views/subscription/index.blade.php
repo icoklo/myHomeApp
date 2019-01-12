@@ -1,10 +1,5 @@
 @extends('layouts.app')
 
-<style>
-td {
-    vertical-align: middle;
-}
-</style>
 @section('content')
 
 <div class="container">
@@ -14,8 +9,8 @@ td {
 
             <div class="card-body">
                 <div class="form-group row mb-0">
-                    <div class="col-sm-6 offset-sm-4">
-                        <a href="{{ route('subscriptions.create') }}" class="btn btn-primary">
+                    <div class="col-sm-6 offset-sm-4" style="margin-bottom: 20px">
+                        <a href="{{ route('subscriptions.create') }}" class="btn btn-primary" style="float:right">
                             {{ __('translations.add_new') }}
                         </a>
                     </div>
@@ -25,7 +20,7 @@ td {
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">{{ __('translations.ordinal_number') }}</th>
                                 <th scope="col">{{ __('translations.name') }}</th>
                                 <th scope="col">{{ __('translations.poll_interval') }}</th>
                                 <th scope="col" colspan="2"></th>
@@ -36,7 +31,7 @@ td {
                                 <tr>
                                     <td> {{ $subscription->id }}</td>
                                     <td> {{ $subscription->name }} </td>
-                                    <td> {{ $subscription->pivot->poll_interval_2 .' sekundi'}} </td>
+                                    <td> {{ $subscription->poll_interval_human }} </td>
                                     <td>
                                         <a href="{{ route('subscriptions.edit', ['id' => $subscription->id]) }}">
                                             {{ __('translations.edit') }}

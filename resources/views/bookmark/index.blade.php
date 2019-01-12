@@ -1,10 +1,5 @@
 @extends('layouts.app')
 
-<style>
-td {
-    vertical-align: middle;
-}
-</style>
 @section('content')
 
 <div class="container">
@@ -14,8 +9,8 @@ td {
 
             <div class="card-body">
                 <div class="form-group row mb-0">
-                    <div class="col-md-6 offset-md-4">
-                        <a href="{{ route('bookmarks.create') }}" class="btn btn-primary">
+                    <div class="col-sm-6 offset-sm-4" style="margin-bottom: 20px">
+                        <a href="{{ route('bookmarks.create') }}" class="btn btn-primary" style="float:right;">
                             {{ __('translations.add_new') }}
                         </a>
                     </div>
@@ -25,7 +20,7 @@ td {
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">{{ __('translations.ordinal_number') }}</th>
                                 <th scope="col">{{ __('translations.name') }}</th>
                                 <th scope="col">{{ __('translations.description2') }}</th>
                                 <th scope="col" colspan="2"></th>
@@ -34,7 +29,7 @@ td {
                         <tbody>
                             @foreach($bookmarks as $bookmark)
                                 <tr>
-                                    <td> {{ $bookmark->id }} </td>
+                                    <td> {{ $bookmark->ordinalNumber }} </td>
                                     <td> {{ $bookmark->name }} </td>
                                     <td> {{ $bookmark->description }} </td>
                                     <td>
@@ -53,8 +48,8 @@ td {
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $bookmarks->links() }}
                 </div>
-
             </div>
         </div>
     </div>

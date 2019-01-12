@@ -1,26 +1,9 @@
 <div class="form-group row">
-    <label class="col-sm-3"> {{ __('translations.information').':' }} </label>
-    <div class="col-sm-9">
-        <select class="form-control" name="information">
-            @foreach($informations as $information)
-                <option value={{ $information->id }}
-                    @if(isset($userInformation) AND $userInformation->information_id == $information->id)
-                        selected
-                    @endif
-                    >
-                    {{ $information->name }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-</div>
-
-<div class="form-group row">
     <label class="col-sm-3"> {{ __('translations.poll_interval').':' }} </label>
     <div class="col-sm-9">
         <select class="form-control" name="poll_interval">
             @foreach($intervals as $key => $value)
-                <option value={{ $value }}
+                <option value="{{ $value }}"
                 @if( isset($userInformation) AND $userInformation->poll_interval_2 == $value)
                     selected
                 @elseif( old('poll_interval') == $value)
@@ -42,7 +25,7 @@
         <div class="col-sm-9">
             <select class="form-control" name="configuration[city]">
                 @foreach($cities as $c)
-                    <option value={{ $c }}
+                    <option value="{{ $c }}"
                     @if( array_key_exists('city', $userInformationConfig) AND $userInformationConfig['city'] == $c)
                         selected
                     @elseif( old('city') == $value)
@@ -64,7 +47,7 @@
     <div class="col-sm-9">
         <select class="form-control" name="configuration[bank]">
             @foreach($banks as $b)
-                <option value={{ $b }}
+                <option value="{{ $b }}"
                 @if( array_key_exists('bank', $userInformationConfig) AND $userInformationConfig['bank'] == $b)
                     selected
                 @elseif( old('configuration[bank]') == $value)
@@ -83,7 +66,7 @@
     <div class="col-sm-9">
         <select class="form-control" name="configuration[currency]">
             @foreach($currency as $cur)
-                <option value={{ $cur }}
+                <option value="{{ $cur }}"
                 @if( array_key_exists('currency', $userInformationConfig) AND $userInformationConfig['currency'] == $cur)
                     selected
                 @elseif( old("configuration[currency]") == $cur)
@@ -102,7 +85,7 @@
     <div class="col-sm-9">
         <select class="form-control" name="configuration[category]">
             @foreach($categories as $cat)
-                <option value={{ $cat }}
+                <option value="{{ $cat }}"
                 @if( array_key_exists('category', $userInformationConfig) AND $userInformationConfig['category'] == $cat)
                     selected
                 @elseif( old("configuration[currency]") == $cat)

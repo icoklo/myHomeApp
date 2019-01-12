@@ -96,9 +96,13 @@ function weather() {
         },
         success: function success(response) {
             //alert("Radi");
-            var text = response.name + ', ' + response.weather[0].description + ', ';
-            text += response.main.temp + ' °C';
-            $('div#vrijeme').html(text);
+            if (response.cod == 400) {
+                $('div#vrijeme').html("Niste izabrali grad/mjesto!!!");
+            } else {
+                var text = response.name + ', ' + response.weather[0].description + ', ';
+                text += response.main.temp + ' °C';
+                $('div#vrijeme').html(text);
+            }
         }
     });
 
@@ -119,7 +123,7 @@ function currencyList() {
         },
         success: function success(response) {
             //alert("Radi");
-            $('div#tecajna_lista').html(response.rates.HRK);
+            $('div#tecajna_lista').html(response.rates.HRK + ' HRK');
         }
     });
 

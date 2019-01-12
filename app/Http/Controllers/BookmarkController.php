@@ -27,7 +27,13 @@ class BookmarkController extends ResourceController
      */
     public function index()
     {
-        $bookmarks = auth()->user()->bookmarks;
+        $bookmarks = auth()->user()->bookmarks()->paginate($this->paginationLimit);
+
+        $start = $this->getOrdinalNumberStart();
+        foreach ($bookmarks as $bookmark) {
+            $bookmark->ordinalNumber = $start;
+            $start++;
+        }
 
         return view('bookmark.index')
             ->with('bookmarks', $bookmarks);
@@ -57,7 +63,7 @@ class BookmarkController extends ResourceController
         $model->save();
         $this->saveMedia($request, $model, 'bookmark_icon.');
 
-        return redirect(route('bookmarks.index'));
+        return redirect(route('bookmarks.index'))->with('message', __('translations.store_update'));
     }
 
     /**
@@ -97,7 +103,7 @@ class BookmarkController extends ResourceController
         $model = parent::update($request, $id);
         $this->saveMedia($request, $model, 'bookmark_icon.');
 
-        return redirect()->back();
+        return redirect(route('bookmarks.index'))->with('message', __('translations.store_update'));
     }
 
     /**
@@ -110,11 +116,11 @@ class BookmarkController extends ResourceController
     {
         if(parent::destroy($id) == true)
         {
-            return redirect()->back();
+            return redirect(route('bookmarks.index'))->with('message', __('translations.destroy'));
         }
         else
         {
-            return "Greska";
+            return redirect(route('bookmarks.index'))->with('message', __('translations.error'));
         }
     }
 }

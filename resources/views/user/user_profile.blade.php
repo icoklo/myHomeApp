@@ -15,7 +15,7 @@
                             <div class="form-group row label-floating {{ ($errors->has('email')) ? 'has-error' : '' }}">
                                 <label class="col-sm-3 control-label"> {{ __('translations.email') }} </label>
                                 <div class="col-sm-9">
-                                    <input type="email" name="email"
+                                    <input type="email" name="email" required
                                     @if( isset($user) )
                                         value="{{ $user->email }}"
                                     @else
@@ -56,7 +56,7 @@
                             <div class="form-group row label-floating {{ ($errors->has('first_name')) ? 'has-error' : '' }}">
                                 <label class="col-sm-3 control-label"> {{ __('translations.user_name') }} </label>
                                 <div class="col-sm-9">
-                                <input type="text" name="name" class="form-control"
+                                <input type="text" name="name" class="form-control" required
                                 @if( isset($user) )
                                     value="{{ $user->name }}"
                                 @else
@@ -73,7 +73,7 @@
                             <div class="form-group row label-floating {{ ($errors->has('last_name')) ? 'has-error' : '' }}">
                                 <label class="col-sm-3 control-label"> {{ __('translations.phone') }} </label>
                                 <div class="col-sm-9">
-                                <input type="text" name="phone" class="form-control"
+                                <input type="text" name="phone" class="form-control" required
                                 @if( isset($user) )
                                     value="{{ $user->phone }}"
                                 @else
@@ -90,7 +90,7 @@
                             <div class="form-group row label-floating {{ ($errors->has('last_name')) ? 'has-error' : '' }}">
                                 <label class="col-sm-3 control-label"> {{ __('translations.birthday') }} </label>
                                 <div class="col-sm-9">
-                                <input type="date" name="birthday" class="form-control"
+                                <input type="date" name="birthday" class="form-control" required
                                 @if( isset($user) )
                                     value="{{ $user->birthday }}"
                                 @else

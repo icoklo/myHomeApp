@@ -9,6 +9,7 @@ class ResourceController extends Controller
 {
     protected $mainModel;
     protected $modelRequest;
+    protected $paginationLimit = 10;
 
     /**
      * Display a listing of the resource.
@@ -123,4 +124,43 @@ class ResourceController extends Controller
             ($minutes > 0 ? "$minutes minutes" :
             "$seconds seconds remaining");
     }
+
+    public function getPollIntervalHuman($value)
+    {
+        $returnValue = '';
+
+        switch($value)
+        {
+            case 3600:
+                $returnValue = __('translations.1hour');
+                break;
+            case 600:
+                $returnValue = __('translations.10min');
+                break;
+            case 60:
+                $returnValue = __('translations.1min');
+                break;
+            case 30:
+                $returnValue = __('translations.30sec');
+                break;
+        }
+
+        return $returnValue;
+    }
+
+    public function getOrdinalNumberStart()
+	{
+		$start = 1;
+		if(request()->has('page'))
+		{
+			$page = intval(request()->input('page'));
+
+			if($page !== 1)
+			{
+				$start = $this->paginationLimit * (intval(request()->input('page'))-1) + 1;
+			}
+		}
+
+		return $start;
+	}
 }

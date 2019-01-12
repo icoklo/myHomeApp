@@ -18,6 +18,7 @@ return [
     'icon'                      => 'Slika:',
     'sort_order'                => 'Poredak:',
     'edit_bookmark'             => 'Uređivanje bookmarka',
+    'edit_subscription'         => 'Uređivanje pretplate',
     'email'                     => 'E-mail:',
     'new_password'              => 'Nova lozinka',
     'confirm_password'          => 'Ponovi lozinku:',
@@ -45,5 +46,13 @@ return [
     '30sec'                     => '30 sekundi',
     'bank'                      => 'Banka',
     'currency'                  => 'Valuta',
-    'category'                  => 'Kategorija'
+    'category'                  => 'Kategorija',
+    'user_profile_notification' => 'Molimo Vas da popunite svoj profil do kraja,
+    to možete učiniti tako da kliknete na gumb Profil
+    (potrebno je popuniti sve podatke osim lozinke).',
+    'store_update'              => 'Uspjesno kreiran/ažuriran podatak.',
+    'destroy'                   => 'Uspjesno obrisan podatak.',
+    'error'                     => 'Greska.',
+    'user_profile_update'       => 'Uspjesno azuriran profil.',
+    'ordinal_number'            => 'Redni broj'
 ];

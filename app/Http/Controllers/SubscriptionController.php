@@ -73,6 +73,11 @@ class SubscriptionController extends ResourceController
     {
         $subscriptions = auth()->user()->informations;
 
+        foreach($subscriptions as $sub)
+        {
+            $sub->poll_interval_human = $this->getPollIntervalHuman($sub->pivot->poll_interval_2);
+        }
+
         return view('subscription.index')
             ->with('subscriptions', $subscriptions);
     }
@@ -80,15 +85,22 @@ class SubscriptionController extends ResourceController
     public function getCities()
     {
         return [
+            '',
             'Varaždin',
             'Zagreb',
-            'Virovitica'
+            'Virovitica',
+            'Dubrovnik',
+            'Rijeka',
+            'Split',
+            'Osijek',
+            'Pitomača'
         ];
     }
 
     public function getCurrencies()
     {
         return [
+            '',
             'EUR',
         ];
     }
@@ -106,6 +118,7 @@ class SubscriptionController extends ResourceController
     public function getBanks()
     {
         return [
+            '',
             'RBA',
             'Erste',
             'Zagrebacka'
@@ -115,7 +128,10 @@ class SubscriptionController extends ResourceController
     public function getCategories()
     {
         return [
+            '',
             'srednji',
+            'kupovni',
+            'prodajni'
         ];
     }
 
@@ -151,54 +167,37 @@ class SubscriptionController extends ResourceController
             'information_id'    => intval($request->input('information')),
         ]);
         UserInformation::where('user_id', '=', $user->id)
-            ->where('information_id', '=', intval($request->input('information')))
-            ->update([
-                'poll_interval_2' => intval($request->input('poll_interval'))
-            ]);
+        ->where('information_id', '=', intval($request->input('information')))
+        ->update([
+            'poll_interval_2' => intval($request->input('poll_interval'))
+        ]);
 
-        $configuration = $request->input('configuration');
+        // remove empty array elements
+        $configuration = array_filter($request->input('configuration'));
 
-        switch(intval($request->input('information')))
+        if(intval($request->input('information')) !== self::DATE_ID)
         {
-            case self::WEATHER_ID:
+            foreach($configuration as $key => $value)
+            {
                 $userInformationConfig = UserInformationConfig::firstOrCreate(
                     [
                         'user_id'           => $user->id,
                         'information_id'    => intval($request->input('information')),
-                        'name'              => 'city',
+                        'name'              => $key,
                     ]
                 );
+
                 UserInformationConfig::where('user_id', '=', $user->id)
-                    ->where('information_id', '=', intval($request->input('information')))
-                    ->where('name', '=', 'city')
-                    ->update([
-                        'value'             => $configuration['city']
-                    ]);
-                break;
-            case self::CURRENCY_LIST_ID:
-                // TODO NACI BOLJE RJESENJE ZA UNSET???
-                unset($configuration['city']);
+                ->where('information_id', '=', intval($request->input('information')))
+                ->where('name', '=', $key)
+                ->update([
+                    'value'             => $value
+                ]);
+            }
 
-                foreach($configuration as $key => $value)
-                {
-                    $userInformationConfig = UserInformationConfig::firstOrCreate(
-                        [
-                            'user_id'           => $user->id,
-                            'information_id'    => intval($request->input('information')),
-                            'name'              => $key,
-                        ]
-                    );
-
-                    UserInformationConfig::where('user_id', '=', $user->id)
-                        ->where('information_id', '=', intval($request->input('information')))
-                        ->where('name', '=', $key)
-                        ->update([
-                            'value'             => $value
-                        ]);
-                }
-                break;
         }
 
+        return true;
     }
 
     /**
@@ -209,9 +208,12 @@ class SubscriptionController extends ResourceController
      */
     public function store(Request $request)
     {
-        $this->storeUpdate($request);
+        if($this->storeUpdate($request))
+        {
+            return redirect(route('subscriptions.index'))->with('message', __('translations.store_update'));
+        }
 
-        return redirect(route('subscriptions.index'));
+        return redirect(route('subscriptions.index'))->with('message', __('translations.error'));;
     }
 
     /**
@@ -270,9 +272,12 @@ class SubscriptionController extends ResourceController
      */
     public function update(Request $request, $id)
     {
-        $this->storeUpdate($request);
+        if($this->storeUpdate($request))
+        {
+            return redirect(route('subscriptions.index'))->with('message', __('translations.store_update'));
+        }
 
-        return redirect(route('subscriptions.index'));
+        return redirect(route('subscriptions.index'))->with('message', __('translations.error'));
     }
 
     /**
@@ -304,11 +309,11 @@ class SubscriptionController extends ResourceController
 
         if($userInformation AND $userInformationConfig)
         {
-            return redirect()->back();
+            return redirect()->back()->with('message', __('translations.destroy'));
         }
         else
         {
-            return "Greska";
+            return redirect()->back()->with('message', __('translations.error'));
         }
     }
 }

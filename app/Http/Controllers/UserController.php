@@ -111,7 +111,7 @@ class UserController extends ResourceController
         }
         $this->saveMedia($request, $user, 'user_icon.');
 
-        return redirect()->back();
+        return redirect()->back()->with('message', __('translations.user_profile_update'));
     }
 
     /**

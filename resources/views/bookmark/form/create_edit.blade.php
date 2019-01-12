@@ -1,7 +1,7 @@
 <div class="form-group row label-floating {{ ($errors->has('email')) ? 'has-error' : '' }}">
     <label class="col-sm-3 control-label"> {{ __('translations.bookmark_name') }} </label>
     <div class="col-sm-9">
-        <input type="name" name="name"
+        <input type="name" name="name" required
         @if( isset($bookmark) )
             value="{{ $bookmark->name }}"
         @else
@@ -19,7 +19,7 @@
 <div class="form-group row label-floating {{ ($errors->has('first_name')) ? 'has-error' : '' }}">
     <label class="col-sm-3 control-label"> {{ __('translations.url') }} </label>
     <div class="col-sm-9">
-        <input type="text" name="url" class="form-control"
+        <input type="text" name="url" class="form-control" required
         @if( isset($bookmark) )
             value="{{ $bookmark->url }}"
         @else
@@ -62,7 +62,7 @@
 <div class="form-group row label-floating {{ ($errors->has('last_name')) ? 'has-error' : '' }}">
     <label class="col-sm-3 control-label"> {{ __('translations.sort_order') }} </label>
     <div class="col-sm-9">
-        <input type="text" name="sort_order" class="form-control"
+        <input type="text" name="sort_order" class="form-control" required
         @if( isset($bookmark) )
             value="{{ $bookmark->sort_order }}"
         @else
