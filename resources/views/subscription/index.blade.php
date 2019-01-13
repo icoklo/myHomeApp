@@ -29,7 +29,7 @@
                         <tbody>
                             @foreach($subscriptions as $subscription)
                                 <tr>
-                                    <td> {{ $subscription->id }}</td>
+                                    <td> {{ $subscription->ordinalNumber }}</td>
                                     <td> {{ $subscription->name }} </td>
                                     <td> {{ $subscription->poll_interval_human }} </td>
                                     <td>

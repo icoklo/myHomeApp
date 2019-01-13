@@ -151,13 +151,14 @@ class ResourceController extends Controller
     public function getOrdinalNumberStart()
 	{
 		$start = 1;
-		if(request()->has('page'))
+        $request = request();
+		if($request->has('page'))
 		{
-			$page = intval(request()->input('page'));
+			$page = intval($request->input('page'));
 
 			if($page !== 1)
 			{
-				$start = $this->paginationLimit * (intval(request()->input('page'))-1) + 1;
+				$start = $this->paginationLimit * (intval($request->input('page'))-1) + 1;
 			}
 		}
 

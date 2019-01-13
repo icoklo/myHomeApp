@@ -41,7 +41,7 @@ class HomeController extends Controller
         $message = '';
         foreach(auth()->user()->getAttributes() as $key => $value)
         {
-            if($key !== 'email_verified_at' AND is_null($value))
+            if($key !== 'email_verified_at' AND $key !== 'remember_token' AND is_null($value))
             {
                 $message = __('translations.user_profile_notification');
             }

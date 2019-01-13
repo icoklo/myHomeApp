@@ -73,9 +73,12 @@ class SubscriptionController extends ResourceController
     {
         $subscriptions = auth()->user()->informations;
 
+        $start = $this->getOrdinalNumberStart();
         foreach($subscriptions as $sub)
         {
+            $sub->ordinalNumber = $start;
             $sub->poll_interval_human = $this->getPollIntervalHuman($sub->pivot->poll_interval_2);
+            $start++;
         }
 
         return view('subscription.index')

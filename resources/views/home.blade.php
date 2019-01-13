@@ -39,12 +39,12 @@
                         <div class="offset-sm-3">
                             @foreach($bookmarks as $bookmark)
                                 <a href="{{$bookmark->url}}" target="_blank">
-                                    <img src={{ asset('storage/'.$bookmark->icon) }} alt="{{$bookmark->name}}" title="{{$bookmark->name}}" style="width:20%;"/>
+                                    <img src={{ asset('storage/'.$bookmark->icon) }} alt="{{$bookmark->name}}" title="{{$bookmark->name}}" style="width:40%;"/>
                                 </a>
                             @endforeach
                         </div>
 
-                        <div id="subscriptions" class="">
+                        <div id="subscriptions">
                             @foreach($subscriptions as $subscription)
                                 <div class="form-group row">
                                     <label class="col-sm-2"> {{ $subscription->name.':' }} </label>

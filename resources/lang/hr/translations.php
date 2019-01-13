@@ -50,7 +50,7 @@ return [
     'user_profile_notification' => 'Molimo Vas da popunite svoj profil do kraja,
     to možete učiniti tako da kliknete na gumb Profil
     (potrebno je popuniti sve podatke osim lozinke).',
-    'store_update'              => 'Uspjesno kreiran/ažuriran podatak.',
+    'store_update'              => 'Uspjesno spremljen podatak.',
     'destroy'                   => 'Uspjesno obrisan podatak.',
     'error'                     => 'Greska.',
     'user_profile_update'       => 'Uspjesno azuriran profil.',
