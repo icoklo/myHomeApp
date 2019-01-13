@@ -178,26 +178,22 @@ class SubscriptionController extends ResourceController
         // remove empty array elements
         $configuration = array_filter($request->input('configuration'));
 
-        if(intval($request->input('information')) !== self::DATE_ID)
+        foreach($configuration as $key => $value)
         {
-            foreach($configuration as $key => $value)
-            {
-                $userInformationConfig = UserInformationConfig::firstOrCreate(
-                    [
-                        'user_id'           => $user->id,
-                        'information_id'    => intval($request->input('information')),
-                        'name'              => $key,
-                    ]
-                );
+            $userInformationConfig = UserInformationConfig::firstOrCreate(
+                [
+                    'user_id'           => $user->id,
+                    'information_id'    => intval($request->input('information')),
+                    'name'              => $key,
+                ]
+            );
 
-                UserInformationConfig::where('user_id', '=', $user->id)
-                ->where('information_id', '=', intval($request->input('information')))
-                ->where('name', '=', $key)
-                ->update([
-                    'value'             => $value
-                ]);
-            }
-
+            UserInformationConfig::where('user_id', '=', $user->id)
+            ->where('information_id', '=', intval($request->input('information')))
+            ->where('name', '=', $key)
+            ->update([
+                'value'             => $value
+            ]);
         }
 
         return true;
