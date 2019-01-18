@@ -66,5 +66,8 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        var appUrl = "{{ env('APP_URL') }}";
+    </script>
     <script src="{{ asset('js/home.js') }}" ></script>
 @endsection

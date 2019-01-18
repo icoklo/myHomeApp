@@ -2,13 +2,13 @@ var city = $('div#vrijeme').data('city');
 var interval = $('div#vrijeme').data('interval');
 var intervalCurrency = $('div#tecajna_lista').data('interval');
 var intervalDate = $('div#datum').data('interval');
-var base_url = 'http://my-home-app.loc';
+var baseUrl = appUrl;
 
 function weather() {
 
     $.ajax({
         method: "GET",
-        url: base_url + "/weather",
+        url: baseUrl + "/weather",
         cache: false,
         dataType: "json",
         crossDomain: true,
@@ -39,7 +39,7 @@ function currencyList() {
 
     $.ajax({
         method: "GET",
-        url: base_url + "/currency-list",
+        url: baseUrl + "/currency-list",
         cache: false,
         dataType: "json",
         crossDomain: true,
@@ -60,7 +60,7 @@ function date() {
 
     $.ajax({
         method: "GET",
-        url: base_url + "/date",
+        url: baseUrl + "/date",
         cache: false,
         dataType: "json",
         crossDomain: true,
