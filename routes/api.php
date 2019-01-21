@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/register', '\App\Http\Controllers\Api\RegisterController@register');
+Route::post('/login', '\App\Http\Controllers\Api\LoginController@authenticate');
+Route::post('/bookmarks/store', '\App\Http\Controllers\Api\BookmarkController@store');
