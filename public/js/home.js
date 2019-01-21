@@ -80,7 +80,6 @@ var city = $('div#vrijeme').data('city');
 var interval = $('div#vrijeme').data('interval');
 var intervalCurrency = $('div#tecajna_lista').data('interval');
 var intervalDate = $('div#datum').data('interval');
-var baseUrl = appUrl;
 
 function weather() {
 
