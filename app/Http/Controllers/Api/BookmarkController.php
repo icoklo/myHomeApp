@@ -22,6 +22,24 @@ class BookmarkController extends ResourceController
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function all()
+    {
+        $bookmarks = $this->mainModel::all();
+
+        // $start = $this->getOrdinalNumberStart();
+        // foreach ($bookmarks as $bookmark) {
+        //     $bookmark->ordinalNumber = $start;
+        //     $start++;
+        // }
+
+        return $bookmarks;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -36,5 +54,7 @@ class BookmarkController extends ResourceController
 
         return $model;
     }
+
+
 
 }

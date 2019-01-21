@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/register', '\App\Http\Controllers\Api\RegisterController@register');
 Route::post('/login', '\App\Http\Controllers\Api\LoginController@authenticate');
 Route::post('/bookmarks/store', '\App\Http\Controllers\Api\BookmarkController@store');
+Route::get('/bookmarks/all', '\App\Http\Controllers\Api\BookmarkController@all');
