@@ -21,3 +21,6 @@ Route::post('/register', '\App\Http\Controllers\Api\RegisterController@register'
 Route::post('/login', '\App\Http\Controllers\Api\LoginController@authenticate');
 Route::post('/bookmarks/store', '\App\Http\Controllers\Api\BookmarkController@store');
 Route::get('/bookmarks/all', '\App\Http\Controllers\Api\BookmarkController@all');
+Route::get('/bookmarks/edit/{id}', '\App\Http\Controllers\Api\BookmarkController@getBookmark');
+Route::put('/bookmarks/edit/{id}', '\App\Http\Controllers\Api\BookmarkController@update');
+Route::delete('/bookmarks/delete/{id}', '\App\Http\Controllers\Api\BookmarkController@destroy');

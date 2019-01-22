@@ -55,6 +55,35 @@ class BookmarkController extends ResourceController
         return $model;
     }
 
+    public function getBookmark($id)
+    {
+        $bookmark = $this->mainModel::find($id);
 
+        return $bookmark;
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->replace($request->except('_token'));
+        $model = parent::update($request, $id);
+
+        return $model;
+    }
+
+    public function destroy($id)
+    {
+        if(parent::destroy($id))
+        {
+            return json_encode([
+                "message" => "Uspjeh"
+            ]);
+        }
+        else {
+            return json_encode([
+                "message" => "Greska"
+            ]);
+        }
+       
+    }
 
 }
