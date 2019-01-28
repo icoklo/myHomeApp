@@ -24,3 +24,4 @@ Route::get('/bookmarks/all', '\App\Http\Controllers\Api\BookmarkController@all')
 Route::get('/bookmarks/edit/{id}', '\App\Http\Controllers\Api\BookmarkController@getBookmark');
 Route::put('/bookmarks/edit/{id}', '\App\Http\Controllers\Api\BookmarkController@update');
 Route::delete('/bookmarks/delete/{id}', '\App\Http\Controllers\Api\BookmarkController@destroy');
+Route::get('/aebi-schmidt/all-data', '\App\Http\Controllers\Api\BookmarkController@getAllData');

@@ -86,4 +86,11 @@ class BookmarkController extends ResourceController
        
     }
 
+    public function getAllData()
+    {
+        $json = file_get_contents(base_path('response.json'));
+
+        return json_encode($json);
+    }
+
 }
