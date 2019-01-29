@@ -90,7 +90,7 @@ class BookmarkController extends ResourceController
     {
         $json = file_get_contents(base_path('response.json'));
 
-        return json_encode($json);
+        return $json;
     }
 
 }

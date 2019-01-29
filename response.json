@@ -6,17 +6,17 @@
     "calls": [
         {
           "status": "CHAT",
-          "time-ivr": "2019-01-15 12:34:56",
-          "time-queue": "2019-01-15 12:34:56",
-          "time-chat": "2019-01-15 12:34:56",
+          "time-ivr": "2019-01-29 16:10:00",
+          "time-queue": "2019-01-29 16:12:00",
+          "time-chat": "2019-01-29 10:34:00",
           "msisdn": "123456789",
-          "service-number": "199",
+          "service-number": 256,
           "destination-number": "56789123"
         },
         {
           "status": "QUEUE",
           "time-ivr": "2019-01-15 12:34:56",
-          "time-queue": "2019-01-15 12:34:56",
+          "time-queue": "2019-01-29 14:45:56",
           "time-chat": null,
           "msisdn": "123456789",
           "service-number": "789567123",
@@ -24,13 +24,27 @@
         },
         {
           "status": "IVR",
-          "time-ivr": "2019-01-15 12:34:56",
+          "time-ivr": "2019-01-29 14:34:56",
           "time-queue": null,
           "time-chat": null,
           "msisdn": "123456789",
           "service-number": "789567123",
           "destination-number": null
-        }
+        },
+        {
+            "call-log-id": 123456,
+            "status": "FINISHED",
+            "time-ivr": "2019-01-15 12:34:56",
+            "time-queue": "2019-01-15 12:34:56",
+            "time-chat": "2019-01-15 12:34:56",
+            "msisdn": "123456789",
+            "service-number": "250",
+            "destination-number": "56789123",
+            "call-duration": 123,
+            "ivr-duration": 12,
+            "queue-duration": 23,
+            "chat-duration": 88
+          }
       ]
   }
 }
