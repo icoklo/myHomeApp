@@ -1,49 +1,49 @@
 {
-  "status-code": 0,
-  "status-message": "request processed",
+  "statusCode": 0,
+  "statusMessage": "request processed",
   "data": {
-    "total-calls": 3,
+    "totalCalls": 3,
     "calls": [
         {
           "status": "CHAT",
-          "time-ivr": "2019-01-29 16:10:00",
-          "time-queue": "2019-01-29 16:12:00",
-          "time-chat": "2019-01-29 10:34:00",
+          "timeIvr": "2019-01-30 10:13:00",
+          "timeQueue": "2019-01-30 10:52:00",
+          "timeChat": "2019-01-29 10:34:00",
           "msisdn": "123456789",
-          "service-number": 256,
-          "destination-number": "56789123"
+          "serviceNumber": 256,
+          "destinationNumber": "56789123"
         },
         {
           "status": "QUEUE",
-          "time-ivr": "2019-01-15 12:34:56",
-          "time-queue": "2019-01-29 14:45:56",
-          "time-chat": null,
+          "timeIvr": "2019-01-15 12:34:56",
+          "timeQueue": "2019-01-29 14:45:56",
+          "timeChat": null,
           "msisdn": "123456789",
-          "service-number": "789567123",
-          "destination-number": null
+          "serviceNumber": "789567123",
+          "destinationNumber": null
         },
         {
           "status": "IVR",
-          "time-ivr": "2019-01-29 14:34:56",
-          "time-queue": null,
-          "time-chat": null,
+          "timeIvr": "2019-01-29 14:34:56",
+          "timeQueue": null,
+          "timeChat": null,
           "msisdn": "123456789",
-          "service-number": "789567123",
-          "destination-number": null
+          "serviceNumber": "789567123",
+          "destinationNumber": null
         },
         {
-            "call-log-id": 123456,
+            "callLogID": 123456,
             "status": "FINISHED",
-            "time-ivr": "2019-01-15 12:34:56",
-            "time-queue": "2019-01-15 12:34:56",
-            "time-chat": "2019-01-15 12:34:56",
+            "timeIvr": "2019-01-15 12:34:56",
+            "timeQueue": "2019-01-15 12:34:56",
+            "timeChat": "2019-01-15 12:34:56",
             "msisdn": "123456789",
-            "service-number": "250",
-            "destination-number": "56789123",
-            "call-duration": 123,
-            "ivr-duration": 12,
-            "queue-duration": 23,
-            "chat-duration": 88
+            "serviceNumber": "250",
+            "destinationNumber": "56789123",
+            "callDuration": 123,
+            "ivrDuration": 12,
+            "queueDuration": 23,
+            "chatDuration": 88
           }
       ]
   }
