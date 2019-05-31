@@ -34,10 +34,16 @@ class LoginController extends ResourceController
  
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-            return "Uspjeh";
+            return json_encode([
+                "status" => "success",
+                "message" => "Uspjeh"
+            ]);
         }
         else {
-            return "Greska";
+            return json_encode([
+                "status" => "error",
+                "message" => "Greska"
+            ]);
         }
     }
 
